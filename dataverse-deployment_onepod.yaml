@@ -1,0 +1,116 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ./docker-compose.yml
+    kompose.version: 1.17.0 (a74acad)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: dataverse
+  name: dataverse
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    name: http
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: dataverse
+    spec:
+      hostNetwork: true    
+      hostAliases:
+      - ip: "0.0.0.0"
+        hostnames:
+        - "postgres"   
+        - "solr"
+      containers:
+      - image: postgres
+        name: db
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-claim0
+        - mountPath: /docker-entrypoint-initdb.d/init.sql
+          name: postgres-claim1
+      - env:
+        - name: SOLR_HOST
+          value: solr
+        - name: SOLR_PORT
+          value: "8983"
+        image: asztrikb/dataversedocker_solr
+        name: solr
+        ports:
+        - containerPort: 8983
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/local/solr-7.3.0/example/solr/collection1/data
+          name: solr-claim0     
+      - env:
+        - name: ADMIN_EMAIL
+          value: admin@localhost
+        - name: BUNDLEPROPERTIES
+          value: Bundle.properties
+        - name: GLASSFISH_DIRECTORY
+          value: /opt/glassfish4
+        - name: HOST_DNS_ADDRESS
+          value: 0.0.0.0
+        - name: LANG
+          value: en
+        - name: MAIL_SERVER
+          value: mailrelay
+        - name: POSTGRES_ADMIN_PASSWORD
+          value: secret
+        - name: POSTGRES_DATABASE
+          value: dvndb
+        - name: POSTGRES_PASSWORD
+          value: secret
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: POSTGRES_SERVER
+          value: db
+        - name: POSTGRES_USER
+          value: dvnapp
+        - name: RSERVE_HOST
+          value: localhost
+        - name: RSERVE_PASSWORD
+          value: rserve
+        - name: RSERVE_PORT
+          value: "6311"
+        - name: RSERVE_USER
+          value: rserve
+        - name: SOLR_LOCATION
+          value: solr:8983
+        - name: TWORAVENS_LOCATION
+          value: NOT INSTALLED
+        image: asztrikb/dataversedocker_dataverse
+        name: dataverse
+        ports:
+        - containerPort: 443
+        - containerPort: 8080
+        resources: {}
+        volumeMounts:
+        - mountPath: /usr/local/glassfish4/glassfish/domains/domain1/files
+          name: dataverse-claim1
+      restartPolicy: Always
+      volumes:
+      - name: dataverse-claim1
+        persistentVolumeClaim:
+          claimName: dataverse-claim1
+      - name: solr-claim0
+        persistentVolumeClaim:
+          claimName: solr-claim0
+      - name: postgres-claim0
+        persistentVolumeClaim:
+          claimName: postgres-claim0
+      - name: postgres-claim1
+        persistentVolumeClaim:
+          claimName: postgres-claim1          
+status: {}

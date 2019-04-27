@@ -25,7 +25,7 @@ services:
         build: dataversedock/
         container_name: dataverse
         ports:
-        - "443:443"
+        - "442:443"
         - "8085:8080"
         environment:
           - "HOST_DNS_ADDRESS=0.0.0.0"
