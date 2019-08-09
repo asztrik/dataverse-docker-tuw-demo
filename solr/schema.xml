@@ -461,6 +461,7 @@
    <field name="hbgdkiUnitsUpperLimitAge" type="text_en" multiValued="false" stored="true" indexed="true"/>
    <field name="hbgdkiUpperLimitAge" type="text_en" multiValued="false" stored="true" indexed="true"/>
    <field name="hbgdkiWaterSanHygiene" type="text_en" multiValued="false" stored="true" indexed="true"/>
+   <field name="instrument" type="text_en" multiValued="true" stored="true" indexed="true"/>
    <field name="journalArticleType" type="text_en" multiValued="false" stored="true" indexed="true"/>
    <field name="journalIssue" type="text_en" multiValued="true" stored="true" indexed="true"/>
    <field name="journalPubDate" type="text_en" multiValued="true" stored="true" indexed="true"/>
@@ -507,6 +508,7 @@
    <field name="publicationIDNumber" type="text_en" multiValued="true" stored="true" indexed="true"/>
    <field name="publicationIDType" type="text_en" multiValued="true" stored="true" indexed="true"/>
    <field name="publicationURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
+   <field name="recordingtype" type="text_en" multiValued="true" stored="true" indexed="true"/>
    <field name="redshiftType" type="text_en" multiValued="false" stored="true" indexed="true"/>
    <field name="relatedDatasets" type="text_en" multiValued="true" stored="true" indexed="true"/>
    <field name="relatedMaterial" type="text_en" multiValued="true" stored="true" indexed="true"/>
@@ -756,6 +758,7 @@
    <copyField source="hbgdkiUnitsUpperLimitAge" dest="text" maxChars="3000"/>
    <copyField source="hbgdkiUpperLimitAge" dest="text" maxChars="3000"/>
    <copyField source="hbgdkiWaterSanHygiene" dest="text" maxChars="3000"/>
+   <copyField source="instrument" dest="_text_" maxChars="3000"/>
    <copyField source="journalArticleType" dest="text" maxChars="3000"/>
    <copyField source="journalIssue" dest="text" maxChars="3000"/>
    <copyField source="journalPubDate" dest="text" maxChars="3000"/>
@@ -802,6 +805,7 @@
    <copyField source="publicationIDNumber" dest="text" maxChars="3000"/>
    <copyField source="publicationIDType" dest="text" maxChars="3000"/>
    <copyField source="publicationURL" dest="text" maxChars="3000"/>
+   <copyField source="recordingtype" dest="_text_" maxChars="3000"/>
    <copyField source="redshiftType" dest="text" maxChars="3000"/>
    <copyField source="relatedDatasets" dest="text" maxChars="3000"/>
    <copyField source="relatedMaterial" dest="text" maxChars="3000"/>

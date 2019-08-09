@@ -1,0 +1,8 @@
+#metadataBlock	name	dataverseAlias	displayName												
+	musicalinfo		Additional Musical Information												
+#datasetField	name	title	description	watermark	 fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id
+	instrument	Instrument	The name of the musical instrument in the recording		text	0		TRUE	TRUE	TRUE	TRUE	FALSE	FALSE		musicalinfo
+	recordingtype	Performers	Indicates the number of the perfomers		text	1		TRUE	TRUE	TRUE	TRUE	FALSE	FALSE		musicalinfo
+#controlledVocabulary	DatasetField	Value	identifier	displayOrder											
+	recordingtype	Solo	0	0											
+	recordingtype	Group	1	1								
